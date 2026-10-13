@@ -1,0 +1,493 @@
+/* ==========================================================================
+   Adegan SVG + lapisan interaksi HTML
+   Durasi & easing dibaca dari custom property yang diisi src/config/motion.ts
+   ========================================================================== */
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #ede0c6;
+}
+
+.scene__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* --- Objek interaktif ----------------------------------------------------- */
+.obj__art {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transition: transform var(--obj-hover-dur) var(--obj-ease);
+}
+.obj.is-active .obj__art {
+  transform: scale(var(--obj-hover-scale));
+}
+
+.obj__halo {
+  fill: rgba(217, 172, 75, 0.16);
+  stroke: var(--gold);
+  stroke-width: 4;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+  transition: opacity var(--obj-hover-dur) ease;
+}
+.obj.is-active .obj__halo {
+  opacity: 1;
+}
+.scene--hint .obj__halo {
+  animation: halo-pulse var(--hint-pulse) ease-in-out infinite alternate;
+}
+@keyframes halo-pulse {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* --- Tombol hotspot (HTML, dapat diakses keyboard) ------------------------ */
+.scene__hotspots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hotspot {
+  position: absolute;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+.hotspot:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 6px;
+}
+
+.hotspot__label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 5px 13px 5px 9px;
+  white-space: nowrap;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--navy);
+  border: 2px solid var(--navy);
+  box-shadow: var(--sticker);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  transition:
+    background-color var(--obj-hover-dur) ease,
+    transform var(--obj-hover-dur) var(--obj-ease);
+}
+.hotspot.is-active .hotspot__label {
+  background: var(--gold);
+  transform: translate(-50%, -50%) scale(1.06);
+}
+.hotspot__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 0 3px var(--gold-soft);
+}
+.scene--hint .hotspot__label {
+  animation: label-pop var(--hint-pulse) ease-in-out infinite alternate;
+}
+@keyframes label-pop {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+    background: var(--paper);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: var(--gold);
+  }
+}
+
+/* --- Toolbar di pojok adegan (seperti ikon di video) ---------------------- */
+.scene__toolbar {
+  position: absolute;
+  top: max(14px, env(safe-area-inset-top));
+  left: max(14px, env(safe-area-inset-left));
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.tool-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 14px 0 11px;
+  border-radius: 999px;
+  border: 2px solid var(--navy);
+  background: var(--paper);
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: var(--sticker);
+}
+.tool-btn:hover,
+.tool-btn[aria-expanded='true'] {
+  background: var(--gold-soft);
+}
+
+.menu {
+  position: relative;
+}
+.menu__panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: 270px;
+  padding: 10px;
+  background: var(--paper);
+  color: var(--navy);
+  border: 2px solid var(--navy);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 0 var(--navy), 0 18px 40px rgba(0, 0, 0, 0.25);
+}
+.menu__panel[hidden] {
+  display: none;
+}
+.menu__title {
+  padding: 2px 8px 6px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.menu__panel ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.menu__item {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  text-align: left;
+}
+.menu__item:hover,
+.menu__item:focus-visible {
+  background: var(--gold-soft);
+}
+.menu__item span {
+  font-weight: 700;
+}
+.menu__note {
+  margin: 8px 4px 2px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(8, 36, 58, 0.15);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.menu__contact {
+  display: block;
+  margin-top: 6px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.menu__contact a {
+  color: var(--red);
+}
+.menu__item small {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* --- Gerak suasana: tirai, tanaman, halaman buku -------------------------- */
+.amb {
+  transform-box: fill-box;
+  will-change: transform;
+}
+.amb-curtain {
+  transform-origin: 50% 0%;
+  animation: amb-curtain var(--amb-curtain) ease-in-out infinite alternate;
+}
+.amb-leaf {
+  transform-origin: 50% 100%;
+  animation: amb-leaf var(--amb-plant) ease-in-out infinite alternate;
+}
+.amb-page {
+  transform-origin: 0% 60%;
+  animation: amb-page var(--amb-page) ease-in-out infinite;
+}
+
+@keyframes amb-curtain {
+  from {
+    transform: skewX(1.2deg);
+  }
+  to {
+    transform: skewX(-1.8deg);
+  }
+}
+@keyframes amb-leaf {
+  from {
+    transform: rotate(-3deg);
+  }
+  to {
+    transform: rotate(3.5deg);
+  }
+}
+@keyframes amb-page {
+  0%,
+  62%,
+  100% {
+    transform: none;
+  }
+  78% {
+    transform: scaleX(0.86) skewY(-5deg);
+  }
+}
+
+/* Elang jawa */
+.amb-breathe {
+  transform-origin: 50% 100%;
+  animation: amb-breathe var(--amb-eagle-breath) ease-in-out infinite;
+}
+.amb-head {
+  transform-origin: 45% 100%;
+  animation: amb-head var(--amb-eagle-head) ease-in-out infinite;
+}
+.amb-crest {
+  transform-origin: 20% 100%;
+  animation: amb-crest var(--amb-eagle-crest) ease-in-out infinite alternate;
+}
+/* Kelopak tertutup hanya sesaat; tanpa animasi (reduced motion) mata tetap terbuka. */
+.amb-blink {
+  transform-origin: 50% 0%;
+  transform: scaleY(0);
+  animation: amb-blink var(--amb-eagle-blink) linear infinite;
+}
+
+@keyframes amb-breathe {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.012, 1.02);
+  }
+}
+@keyframes amb-head {
+  0%,
+  28%,
+  86%,
+  100% {
+    transform: rotate(0deg);
+  }
+  36%,
+  54% {
+    transform: rotate(-8deg);
+  }
+  64%,
+  76% {
+    transform: rotate(5deg);
+  }
+}
+@keyframes amb-crest {
+  from {
+    transform: rotate(-3deg);
+  }
+  to {
+    transform: rotate(6deg);
+  }
+}
+@keyframes amb-blink {
+  0%,
+  93%,
+  100% {
+    transform: scaleY(0);
+  }
+  96% {
+    transform: scaleY(1);
+  }
+}
+
+/* Kucing berjalan di karpet */
+.cat-walk {
+  animation-name: cat-walk;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.cat-turn {
+  transform-origin: 50% 50%;
+  animation-name: cat-turn;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.cat-leg {
+  transform-origin: 50% 0%;
+  animation: cat-step var(--cat-step) ease-in-out infinite alternate;
+}
+.cat-leg--alt {
+  animation-delay: calc(var(--cat-step) * -1);
+}
+.cat-bob {
+  animation: cat-bob calc(var(--cat-step) / 2) ease-in-out infinite alternate;
+}
+.cat-tail {
+  transform-origin: 100% 100%;
+  animation: cat-tail var(--cat-tail) ease-in-out infinite alternate;
+}
+
+/* Kucing tidur: napas pelan + "z" melayang naik lalu memudar */
+.cat-sleep {
+  transform-origin: 50% 100%;
+  animation: cat-sleep var(--cat-sleep) ease-in-out infinite;
+}
+.sleep-z {
+  animation: sleep-z var(--cat-z) ease-out infinite;
+}
+@keyframes cat-sleep {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.015, 1.045);
+  }
+}
+@keyframes sleep-z {
+  0% {
+    transform: translate(0, 6px);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(8px, -18px);
+    opacity: 0;
+  }
+}
+
+/* 0–4% diam · 4–46% jalan ke kanan · 46–54% berhenti & berbalik · 54–96% jalan ke kiri · 96–100% berbalik */
+@keyframes cat-walk {
+  0%,
+  4% {
+    transform: translateX(0);
+  }
+  46%,
+  54% {
+    transform: translateX(var(--walk-dist));
+  }
+  96%,
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes cat-turn {
+  0%,
+  49.9% {
+    transform: scaleX(1);
+  }
+  50%,
+  99.9% {
+    transform: scaleX(-1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+@keyframes cat-step {
+  from {
+    transform: rotate(-17deg);
+  }
+  to {
+    transform: rotate(17deg);
+  }
+}
+@keyframes cat-bob {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-1.6px);
+  }
+}
+@keyframes cat-tail {
+  from {
+    transform: rotate(-7deg);
+  }
+  to {
+    transform: rotate(9deg);
+  }
+}
+
+/* Jeda saat panel terbuka / adegan tidak terlihat */
+.scene--paused .amb {
+  animation-play-state: paused;
+}
+
+/* --- Mobile: label lebih ringkas, tetap terbaca --------------------------- */
+.scene--mobile .hotspot__label {
+  font-size: 12.5px;
+  min-height: 30px;
+  padding: 4px 10px 4px 7px;
+  gap: 5px;
+}
+.scene--mobile .hotspot__dot {
+  width: 9px;
+  height: 9px;
+}
+.scene--mobile .scene__toolbar {
+  top: max(10px, env(safe-area-inset-top));
+  left: max(10px, env(safe-area-inset-left));
+  gap: 6px;
+}
+.scene--mobile .tool-btn {
+  font-size: 13px;
+  padding: 0 12px 0 9px;
+}
+
+/* --- Reduced motion: tanpa animasi, informasi tetap lengkap --------------- */
+@media (prefers-reduced-motion: reduce) {
+  .amb,
+  .amb-blink,
+  .scene--hint .obj__halo,
+  .scene--hint .hotspot__label {
+    animation: none !important;
+  }
+  .obj__art,
+  .obj__halo,
+  .hotspot__label {
+    transition: none !important;
+  }
+  .obj.is-active .obj__art {
+    transform: none;
+  }
+  .scene--hint .obj__halo {
+    opacity: 1;
+  }
+  .scene--hint .hotspot__label {
+    background: var(--gold);
+  }
+}

@@ -1,0 +1,130 @@
+/* ==========================================================================
+   Token warna — pendekatan visual dari logo P3MD (bukan kode warna resmi)
+   ========================================================================== */
+:root {
+  --navy: #08243a;
+  --navy-2: #12385a;
+  --navy-3: #1e4a6e;
+  --gold: #d9ac4b;
+  --gold-dark: #9c7224; /* emas gelap untuk teks di atas krem (kontras ≥ 4.5:1) */
+  --gold-soft: #f4e2b6;
+  --cream: #f3e9d5;
+  --cream-2: #fbf6ec;
+  --paper: #fffdf7;
+  --red: #a52b32;
+  --red-dark: #7e1e24;
+  --red-soft: #f6dedb;
+  --ink: #1b2a38;
+  --muted: #4a5a68;
+
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+
+  --radius: 14px;
+  --sticker: 0 3px 0 var(--navy);
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--navy);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden; /* halaman = satu adegan layar penuh, tanpa scroll */
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.page {
+  position: fixed;
+  inset: 0;
+  background: var(--navy);
+}
+
+/* Adegan memenuhi seluruh layar */
+.app {
+  position: absolute;
+  inset: 0;
+}
+
+/* ==========================================================================
+   Tombol
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 22px;
+  border-radius: 999px;
+  border: 2px solid var(--navy);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+.btn:active {
+  transform: translateY(2px);
+}
+.btn--primary {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red-dark);
+  box-shadow: 0 3px 0 var(--red-dark);
+}
+.btn--primary:hover {
+  background: #b5333a;
+}
