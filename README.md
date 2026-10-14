@@ -28,7 +28,7 @@ src/
     scene/Scene.tsx           ← menyusun adegan SVG + lapisan tombol HTML
     scene/Hotspot.tsx         ← tombol interaktif + label yang selalu terlihat
     scene/objects/*.tsx       ← tiap objek SVG (Background, Furniture, Decorations,
-                                 Eagle (elang jawa), Cat (kucing berjalan & tidur), ProfileFrame, VisionBoard, ActionBook, JourneyFrames,
+                                 Dimas (ilustrasi Dimas menyapa), Eagle (elang jawa), Cat (kucing berjalan & tidur), ProfileFrame, VisionBoard, ActionBook, JourneyFrames,
                                  AspirationBox, Avatar)
     InfoDialog.tsx            ← panel modal (focus trap, Escape, transisi)
     SectionMenu.tsx           ← menu teks di pojok adegan
@@ -79,9 +79,9 @@ Semua angka gerak ada di **`src/config/motion.ts`** dan diteruskan ke CSS sebaga
 | `backdrop.opacity` | Seberapa gelap adegan saat panel terbuka |
 | `object.hoverScale / hoverMs` | Efek hover/fokus objek |
 | `hint.durationMs / pulseMs / autoOnLoad` | Tombol Petunjuk & sorotan otomatis saat halaman dibuka |
-| `ambient.*` | Gerak tirai, tanaman, halaman buku, elang jawa (`eagle*Ms`: napas, menoleh, jambul, kedipan), dan kucing (`catSpeed`, `catStepMs`, `catTailMs`; kucing tidur: `catSleepBreathMs`, `catSleepZMs`). Ubah `enabled` ke `false` untuk mematikan semuanya |
+| `ambient.*` | Gerak tirai, tanaman, halaman buku, elang jawa (`eagle*Ms`: napas, menoleh, jambul, kedipan), dan kucing (`catSpeed`, `catStepMs`, `catTailMs`; kucing tidur: `catSleepBreathMs`, `catSleepZMs`), serta ilustrasi Dimas (`dimasWaveMs`: lambaian + balon kata, `dimasBlinkMs`, `dimasBreathMs`, `dimasHeadMs`). Ubah `enabled` ke `false` untuk mematikan semuanya |
 
-Posisi objek dan label per breakpoint ada di **`src/config/layout.ts`**. Kucing yang berjalan diatur di `walkingCats` (posisi awal `x`, batas kanan `toX`, skala, fase awal). Kucing yang tidur diatur di `sleepingCats` (posisi & skala). Satu kucing bisa dipindah dari satu daftar ke daftar lain tanpa mengubah gambarnya. Komposisi `desktop` (1600×1000) dan `mobile` (900×1540) berbeda, dan breakpoint-nya adalah `MOBILE_QUERY`.
+Posisi objek dan label per breakpoint ada di **`src/config/layout.ts`**. Kucing yang berjalan diatur di `walkingCats` (posisi awal `x`, batas kanan `toX`, skala, fase awal). Kucing yang tidur diatur di `sleepingCats` (posisi & skala). Posisi ilustrasi Dimas diatur di `placements.dimas`, dan balon katanya di `dimasBubble`. Teks balon kata ada di `site.greeting` pada `content.ts`. Satu kucing bisa dipindah dari satu daftar ke daftar lain tanpa mengubah gambarnya. Komposisi `desktop` (1600×1000) dan `mobile` (900×1540) berbeda, dan breakpoint-nya adalah `MOBILE_QUERY`.
 
 ## Catatan video referensi
 

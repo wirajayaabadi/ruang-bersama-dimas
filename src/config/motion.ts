@@ -59,6 +59,11 @@ export const motion = {
     /** Kucing tidur: satu tarikan napas & satu siklus "z" melayang. */
     catSleepBreathMs: 3400,
     catSleepZMs: 3600,
+    /** Ilustrasi Dimas: satu siklus lambaian + balon kata, kedipan, napas, kepala miring. */
+    dimasWaveMs: 4200,
+    dimasBlinkMs: 4600,
+    dimasBreathMs: 4000,
+    dimasHeadMs: 5200,
     /** Hentikan animasi suasana saat panel terbuka. */
     pauseWhenPanelOpen: true,
   },
@@ -88,5 +93,9 @@ export function motionCssVars(): Record<string, string> {
     '--cat-tail': `${motion.ambient.catTailMs}ms`,
     '--cat-sleep': `${motion.ambient.catSleepBreathMs}ms`,
     '--cat-z': `${motion.ambient.catSleepZMs}ms`,
+    '--dimas-wave': `${motion.ambient.dimasWaveMs}ms`,
+    '--dimas-blink': `${motion.ambient.dimasBlinkMs}ms`,
+    '--dimas-breath': `${motion.ambient.dimasBreathMs}ms`,
+    '--dimas-head': `${motion.ambient.dimasHeadMs}ms`,
   };
 }

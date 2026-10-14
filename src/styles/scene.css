@@ -331,6 +331,139 @@
   }
 }
 
+/* Ilustrasi Dimas menyapa */
+.dimas-breathe {
+  transform-origin: 50% 100%;
+  animation: dimas-breathe var(--dimas-breath) ease-in-out infinite;
+}
+.dimas-head {
+  transform-origin: 50% 100%;
+  animation: dimas-head var(--dimas-head) ease-in-out infinite alternate;
+}
+/* Titik putar = tengah kotak bantu = siku */
+.dimas-wave {
+  transform-origin: 50% 50%;
+  animation: dimas-wave var(--dimas-wave) ease-in-out infinite;
+}
+.dimas-blink {
+  transform-origin: 50% 0%;
+  transform: scaleY(0);
+  animation: dimas-blink var(--dimas-blink) linear infinite;
+}
+@keyframes dimas-breathe {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.006, 1.012);
+  }
+}
+@keyframes dimas-head {
+  from {
+    transform: rotate(-1.5deg);
+  }
+  to {
+    transform: rotate(1.5deg);
+  }
+}
+@keyframes dimas-wave {
+  0%,
+  12%,
+  58%,
+  100% {
+    transform: rotate(0deg);
+  }
+  20%,
+  40% {
+    transform: rotate(-16deg);
+  }
+  30%,
+  50% {
+    transform: rotate(10deg);
+  }
+}
+@keyframes dimas-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(0);
+  }
+  95% {
+    transform: scaleY(1);
+  }
+}
+/* Balon kata (HTML). Tanpa animasi (reduced motion) balon tetap terlihat. */
+.scene__bubble {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  padding: 7px 14px;
+  border-radius: 14px;
+  background: var(--paper);
+  color: var(--navy);
+  border: 2px solid var(--navy);
+  box-shadow: var(--sticker);
+  font-size: 14px;
+  font-weight: 800;
+  white-space: nowrap;
+  animation: dimas-bubble var(--dimas-wave) ease-out infinite;
+}
+.scene__bubble::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--paper);
+  border: 2px solid var(--navy);
+  border-top: 0;
+  border-right: 0;
+}
+/* ekor di kiri-bawah, balon ke kanan-atas titik jangkar */
+.scene__bubble--right {
+  transform: translate(10px, -100%);
+  transform-origin: 0% 100%;
+}
+.scene__bubble--right::after {
+  left: 10px;
+  bottom: -7px;
+  transform: rotate(-45deg);
+}
+/* ekor di tengah-bawah, balon di atas kepala */
+.scene__bubble--top {
+  transform: translate(-50%, calc(-100% - 10px));
+  transform-origin: 50% 100%;
+}
+.scene__bubble--top::after {
+  left: calc(50% - 6px);
+  bottom: -7px;
+  transform: rotate(-45deg);
+}
+.scene--mobile .scene__bubble {
+  font-size: 12.5px;
+  padding: 5px 11px;
+}
+.scene--paused .scene__bubble {
+  animation-play-state: paused;
+}
+@keyframes dimas-bubble {
+  0%,
+  8% {
+    opacity: 0;
+    scale: 0.85;
+  }
+  14%,
+  56% {
+    opacity: 1;
+    scale: 1;
+  }
+  64%,
+  100% {
+    opacity: 0;
+    scale: 0.9;
+  }
+}
+
 /* Kucing berjalan di karpet */
 .cat-walk {
   animation-name: cat-walk;
@@ -472,6 +605,7 @@
 @media (prefers-reduced-motion: reduce) {
   .amb,
   .amb-blink,
+  .scene__bubble,
   .scene--hint .obj__halo,
   .scene--hint .hotspot__label {
     animation: none !important;

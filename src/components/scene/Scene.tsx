@@ -16,6 +16,7 @@ import { AspirationBox } from './objects/AspirationBox';
 import { Background } from './objects/Background';
 import { Plant, SceneWindow } from './objects/Decorations';
 import { CatWalker, SleepingCat } from './objects/Cat';
+import { DimasFigure } from './objects/Dimas';
 import { EaglePerch } from './objects/Eagle';
 import { Bookshelf, Chair, Desk, DeskLamp } from './objects/Furniture';
 import { JourneyFrames } from './objects/JourneyFrames';
@@ -43,6 +44,7 @@ const DRAW_ORDER: { key: ObjectKey; id: string; section?: SectionId }[] = [
   { key: 'profileFrame', id: 'scene-profile', section: 'profile' },
   { key: 'actionBook', id: 'scene-action-book', section: 'actions' },
   { key: 'deskLamp', id: 'scene-furniture-lamp' },
+  { key: 'dimas', id: 'scene-dimas' },
   { key: 'aspirationBox', id: 'scene-aspiration-box', section: 'aspiration' },
   { key: 'plant', id: 'scene-decorations-plant' },
 ];
@@ -73,6 +75,8 @@ function renderArt(key: ObjectKey) {
       return <Plant />;
     case 'eaglePerch':
       return <EaglePerch />;
+    case 'dimas':
+      return <DimasFigure />;
   }
 }
 
@@ -171,6 +175,18 @@ export function Scene({ layout, hintActive, paused, onOpen, toolbar }: Props) {
             onOpen={onOpen}
           />
         ))}
+      </div>
+
+      {/* Balon kata Dimas — HTML agar teks terbaca; muncul seirama lambaian tangan */}
+      <div
+        className={`scene__bubble scene__bubble--${layout.dimasBubble.placement}`}
+        aria-hidden="true"
+        style={{
+          left: `${((layout.dimasBubble.x - vb.x) / vb.w) * 100}%`,
+          top: `${((layout.dimasBubble.y - vb.y) / vb.h) * 100}%`,
+        }}
+      >
+        {content.site.greeting}
       </div>
 
       {toolbar && <div className="scene__toolbar">{toolbar}</div>}

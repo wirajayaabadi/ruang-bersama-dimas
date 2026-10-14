@@ -45,9 +45,11 @@ export const content = {
     candidateFullName: 'Dimas Satria Dwi Putra',
     candidateRole: 'Calon Komandan Batch Korps P3MD',
     intro: 'Kenali Dimas, jelajahi gagasannya, dan sampaikan aspirasimu.',
+    /** Teks balon kata ilustrasi Dimas yang melambai (pendek, ±14 karakter). */
+    greeting: 'Halo, Serdik!',
     sceneHint: 'Ketuk objek berlabel untuk menjelajah',
     sceneAriaLabel:
-      'Ilustrasi ruang diskusi Serdik: meja dengan foto Dimas dan buku kerja, papan di dinding, bingkai dokumentasi, kotak surat aspirasi, elang jawa yang berdiri di tiang tenggeran dekat jendela, serta dua kucing di atas karpet: kucing hitam-putih yang berjalan dan kucing calico yang tidur.',
+      'Ilustrasi ruang diskusi Serdik: Dimas berdiri tersenyum sambil melambaikan tangan, meja dengan foto Dimas dan buku kerja, papan di dinding, bingkai dokumentasi, kotak surat aspirasi, elang jawa yang berdiri di tiang tenggeran dekat jendela, serta dua kucing di atas karpet: kucing hitam-putih yang berjalan dan kucing calico yang tidur.',
     sampleBadge: 'Konten contoh — menunggu konfirmasi Dimas',
     /** Bagian yang masih berisi konten contoh → menampilkan label `sampleBadge`. Kosongkan bila semua sudah final. */
     sampleSections: [] as SectionId[],

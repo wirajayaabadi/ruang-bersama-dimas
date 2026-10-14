@@ -25,7 +25,8 @@ export type ObjectKey =
   | 'deskLamp'
   | 'aspirationBox'
   | 'plant'
-  | 'eaglePerch';
+  | 'eaglePerch'
+  | 'dimas';
 
 /** Ukuran lokal tiap komponen objek (harus sama dengan gambar di komponen). */
 export const objectSizes: Record<ObjectKey, { w: number; h: number }> = {
@@ -41,6 +42,7 @@ export const objectSizes: Record<ObjectKey, { w: number; h: number }> = {
   aspirationBox: { w: 190, h: 340 },
   plant: { w: 180, h: 330 },
   eaglePerch: { w: 160, h: 560 },
+  dimas: { w: 260, h: 480 },
 };
 
 /** Objek mana yang membuka bagian mana. */
@@ -77,6 +79,8 @@ export interface SceneLayout {
    * phase 0..1 = titik awal siklus (0.5 → mulai dari ujung kanan).
    */
   walkingCats: { variant: CatVariant; x: number; y: number; s: number; toX: number; phase: number }[];
+  /** Balon kata Dimas (HTML): titik ekor balon di viewBox + arah balon (kanan atau atas kepala). */
+  dimasBubble: { x: number; y: number; placement: 'right' | 'top' };
   /** Kucing yang tidur diam di karpet (x,y = kiri-atas, s = skala). Digambar di depan kucing yang berjalan. */
   sleepingCats: { variant: CatVariant; x: number; y: number; s: number }[];
   /** Titik tengah label tiap objek interaktif (koordinat viewBox). */
@@ -102,11 +106,15 @@ export const layouts: Record<'desktop' | 'mobile', SceneLayout> = {
       profileFrame: { x: 490, y: 442 },
       actionBook: { x: 735, y: 506 },
       deskLamp: { x: 1030, y: 415 },
-      aspirationBox: { x: 1300, y: 560 },
+      // digeser ke kanan untuk memberi ruang ilustrasi Dimas
+      aspirationBox: { x: 1400, y: 560 },
       plant: { x: 268, y: 612 },
       // elang jawa berdiri di samping jendela, sedikit di depan tirai kiri
       eaglePerch: { x: 288, y: 200, s: 0.96 },
+      // Dimas berdiri di antara meja dan kotak surat
+      dimas: { x: 1180, y: 420, s: 1.08 },
     },
+    dimasBubble: { x: 1340, y: 490, placement: 'right' },
     // kucing hitam-putih berjalan di jalur belakang, lewat di belakang kucing calico yang tidur
     walkingCats: [{ variant: 'bicolor', x: 430, y: 830, s: 1.0, toX: 1100, phase: 0.1 }],
     sleepingCats: [{ variant: 'calico', x: 750, y: 888, s: 1.1 }],
@@ -114,8 +122,8 @@ export const layouts: Record<'desktop' | 'mobile', SceneLayout> = {
       profile: { x: 565, y: 418 },
       vision: { x: 970, y: 426 },
       actions: { x: 875, y: 486 },
-      journey: { x: 1370, y: 426 },
-      aspiration: { x: 1395, y: 536 },
+      journey: { x: 1430, y: 410 },
+      aspiration: { x: 1495, y: 545 },
     },
   },
   mobile: {
@@ -141,15 +149,18 @@ export const layouts: Record<'desktop' | 'mobile', SceneLayout> = {
       plant: { x: -6, y: 1262, s: 0.8 },
       // di antara jendela & rak; kaki tiang tersembunyi di belakang meja
       eaglePerch: { x: 404, y: 626, s: 0.95 },
+      // Dimas berdiri di depan rak buku
+      dimas: { x: 622, y: 670, s: 1.03 },
     },
+    dimasBubble: { x: 725, y: 684, placement: 'top' },
     walkingCats: [{ variant: 'bicolor', x: 140, y: 1330, s: 1.05, toX: 520, phase: 0.1 }],
     sleepingCats: [{ variant: 'calico', x: 360, y: 1414, s: 1.15 }],
     labels: {
       vision: { x: 242, y: 540 },
       journey: { x: 673, y: 540 },
       profile: { x: 150, y: 926 },
-      actions: { x: 375, y: 1226 },
-      aspiration: { x: 740, y: 1132 },
+      actions: { x: 350, y: 1226 },
+      aspiration: { x: 612, y: 1262 },
     },
   },
 };
